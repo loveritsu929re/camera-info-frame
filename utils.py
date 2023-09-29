@@ -43,7 +43,8 @@ def get_exif(path) -> dict:
     """
     exif_dict = {}
     try:
-        output_bytes = subprocess.check_output([EXIFTOOL_PATH, '-d', '%Y-%m-%d %H:%M:%S%3f%z', path])
+        output_bytes = subprocess.run([EXIFTOOL_PATH, '-d', '%Y-%m-%d %H:%M:%S%3f%z', path],
+                                      capture_output=True).stdout
         output = output_bytes.decode('utf-8', errors='ignore')
 
         lines = output.splitlines()
